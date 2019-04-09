@@ -1,0 +1,19 @@
+version: '2.3'
+services:
+  prediction_system:
+    build:
+        context: .
+        network: host
+    container_name: prediction-system-server
+    privileged: true
+    environment:
+      - PYTHONPATH=/project
+      - DISPLAY="$DISPLAY"
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - ./:/project/
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    ports:
+      - "8880:5000"
+    stdin_open: true
+    tty: true
