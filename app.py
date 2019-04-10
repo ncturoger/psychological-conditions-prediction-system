@@ -18,10 +18,12 @@ graph = tf.get_default_graph()
 
 # flask run --host=0.0.0.0
 @app.route('/')
-def hello_world():
+def home_page():
     return render_template('home.html') 
-    # return "12"
 
+@app.route('/form')
+def fillform():
+    return render_template('form.html') 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():

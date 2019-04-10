@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/semantic.min.css') }}">
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script>
+
+<html>
+
+<head>
+	<title>填表單</title>
+</head>
+<script>
+	$('.ui.radio.checkbox')
+		.checkbox()
+		;
+</script>
+<style>
+	body {
+		padding: 1em;
+	}
+
+	.spaced>.button {
+		margin-bottom: 1em;
+	}
+
+	.landing-image {
+		background-image: url("{{ url_for('static', filename='assets/images/background.jpg') }}");
+		background-repeat: repeat-n;
+		background-size: cover;
+	}
+</style>
+
+<body class="landing-image">
+
+	<div class="main ui container">
+		<div class="ui segment">
+			<div class="ui dimmer" id='loader'>
+				<div class="ui text loader">預測中</div>
+			</div>
+			<div class="ui form">
+				<form id="fm" name="fm" action="" method="POST">
+					<h4 class="ui center aligned dividing header">填選案例資料</h4>
+					<label>基本資料</label>
+					<div class="inline fields">
+						<label>性別</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="gender" checked="checked" type="radio" value="male">
+								<label>男</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="gender" type="radio" value="female">
+								<label>女</label>
+							</div>
+						</div>
+					</div>
+					<div class="fields">
+						<div class="field">
+							<label>年齡</label>
+							<input placeholder="請輸入年齡" type="text" id="age" name="age" required="required"
+								onkeyup="value=value.replace(/[^\d]/g,'')">
+						</div>
+						<div class="field">
+							<label>教育程度</label>
+							<select class="ui fluid dropdown" id="education" name="education">
+								<option value="s">高中</option>
+								<option value="u">大學</option>
+								<option value="g">碩士</option>
+							</select>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>役別</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="militaryservice" checked="checked" type="radio" value="v">
+								<label>志願役</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="militaryservice" type="radio" value="c">
+								<label>義務役</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>階級</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="rank" checked="checked" type="radio" value="soldier">
+								<label>士兵</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="rank" type="radio" value="sergeant">
+								<label>士官</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="rank" type="radio" value="officer">
+								<label>軍官</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>服役時間</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="time" checked="checked" type="radio" value="S">
+								<label>一年內</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="time" type="radio" value="M">
+								<label>一至三年</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="time" type="radio" value="L">
+								<label>三年以上</label>
+							</div>
+						</div>
+					</div>
+					<div class="field">
+						<label>心理測驗結果</label>
+						<select class="ui fluid dropdown" id="testResult" name="testResult">
+							<option value="">無</option>
+							<option value="lieType">未通過測謊</option>
+							<option value="counselingType">心理諮商組/關懷輔導組/諮商輔導組/基層幹部協助組</option>
+							<option value="referralMedicalType">轉介醫療組</option>
+							<option value="highlyCaredType">高度關懷</option>
+							<option value="needCareType">尚需關懷群</option>
+							<option value="mediumHeightCareType">需中高度關懷群</option>
+							<option value="generalType">一般組</option>
+							<option value="adaptWellType">適應良好群</option>
+							<option value="moderateCareType">需中度關懷群</option>
+							<option value="Etype">e型</option>
+							<option value="Ctype">c型</option>　
+						</select>
+					</div>
+					<div class="inline fields">
+						<label>是否有自殺史</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="suicideHistory" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="suicideHistory" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有自殺訊息</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="hadSuicideMessage" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="hadSuicideMessage" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有痼疾</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="confirmedDisease" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="confirmedDisease" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有感情問題</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="emotionalProblems" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="emotionalProblems" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有精神疾病</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="mentalillness" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="mentalillness" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有家族自殺史</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="familySuicideHistory" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="familySuicideHistory" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有家庭壓力</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="familyMembers" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="familyMembers" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有工作壓力</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="workplacePressure" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="workplacePressure" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有經濟問題</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="EconomicIssues" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="EconomicIssues" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div class="inline fields">
+						<label>是否有個人壓力</label>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="personalPressure" checked="checked" type="radio" value="1">
+								<label>是</label>
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui radio checkbox">
+								<input name="personalPressure" type="radio" value="0">
+								<label>否</label>
+							</div>
+						</div>
+					</div>
+					<div><input type="button" class="ui green button" id="Send" name="Send" value="提交"
+							onclick="SendAndCheck(document.fm);" /></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script>
+	$(document)
+		.ready(function () { })
+
+	function SendAndCheck(element) {
+		// console.log(element.elements["sexuality"].value);
+		var form_data = new FormData();
+
+		if(!element.elements["age"].value)
+		{
+			alert("請填選年齡");
+			return
+		}
+
+
+		const sleep = (milliseconds) => {
+			return new Promise(resolve => setTimeout(resolve, milliseconds))
+		}
+
+
+		form_data.append("suicide", 0)
+		form_data.append("sexuality", $("input[name='gender']:checked").val())
+		form_data.append("age", element.elements["age"].value)
+		form_data.append("education", element.elements["education"].value)
+		form_data.append("rank", element.elements["rank"].value)
+		form_data.append("militaryservice", element.elements["militaryservice"].value)
+		form_data.append("time", element.elements["time"].value)
+		form_data.append("testResult", element.elements["testResult"].value)
+		form_data.append("suicideHistory", element.elements["suicideHistory"].value)
+		form_data.append("hadSuicideMessage", element.elements["hadSuicideMessage"].value)
+		form_data.append("confirmedDisease", element.elements["confirmedDisease"].value)
+		form_data.append("emotionalProblems", element.elements["emotionalProblems"].value)
+		form_data.append("mentalillness", element.elements["mentalillness"].value)
+		form_data.append("familySuicideHistory", element.elements["familySuicideHistory"].value)
+		form_data.append("familyMembers", element.elements["familyMembers"].value)
+		form_data.append("workplacePressure", element.elements["workplacePressure"].value)
+		form_data.append("EconomicIssues", element.elements["EconomicIssues"].value)
+		form_data.append("personalPressure", element.elements["personalPressure"].value)
+		// console.log(element.elements["education"].value)
+		console.log("predicting...")
+		document.getElementById('loader').classList.add('active');
+		sleep(2000).then(() => {
+			document.getElementById('loader').classList.remove('active');
+			$.ajax({
+				type: "POST",
+				async: true,
+				data: form_data,
+				processData: false,
+				url: "/predict",
+				contentType: false,
+				success: function (msg) {
+					console.log(msg)
+					if (msg["result"] > 0.5) {
+						alert("建議轉介");
+
+					}
+
+					else {
+						alert("持續關懷");
+					}
+				},
+				error: function (err) {
+					console.log(err.responseText)
+				}
+			});
+		})
+
+
+	}
+</script>

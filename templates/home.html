@@ -3,158 +3,83 @@
 <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script>
 
+<!DOCTYPE html>
 <html>
 
 <head>
-	<title>填表單</title>
-</head>
-<script>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-</script>
+    <!-- Site Properties -->
+    <title>Login Example - Semantic</title>
+    <link rel="stylesheet" type="text/css" href="../dist/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/site.css">
+
+    <link rel="stylesheet" type="text/css" href="../dist/components/container.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/header.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/image.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="../dist/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/form.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/input.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/button.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/list.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/message.css">
+    <link rel="stylesheet" type="text/css" href="../dist/components/icon.css">
+
+    <script src="assets/library/jquery.min.js"></script>
+    <script src="../dist/components/form.js"></script>
+    <script src="../dist/components/transition.js"></script>
+
+    <style type="text/css">
+        body {
+            background-image: url("{{ url_for('static', filename='assets/images/home.jpg') }}");
+            background-repeat: repeat-n;
+            background-size: cover;
+        }
+
+        body>.grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+    <script>
+        $(document)
+            .ready(function () { }
+    </script>
+</head>
 
 <body>
-	<div class="ui segment">
-		<form id="fm" name="fm" action="" method="POST">
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form class="ui large form" action="/form" method="get">
+                <div class="ui stacked segment">
+                    <h2 class="ui teal image header">
+                        <img src="{{ url_for('static', filename='assets/images/logo.png') }}" class="image">
+                        <div class="content">
+                            國軍自殤行為預測系統
+                        </div>
+                    </h2>
+                    <div>
+                        <input class="ui fluid large teal submit button" type="submit" value="進入系統" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-			<div>
-				<div>性別 <select id="sexuality" name="sexuality">
-						　 <option value="male">男</option>
-						　 <option value="female">女</option>
-						　 </select></div>
-				<div>年齡 <input type="text" id="age" name="age" value="" onkeyup="value=value.replace(/[^\d]/g,'')" /></div>
-
-				<div>教育程度 <select id="education" name="education">
-						　 <option value="s">高中</option>
-						　 <option value="u">大學</option>
-						<option value="g">碩士</option>
-						　
-					</select></div>
-				<div>階級 <select id="rank" name="rank">
-						　 <option value="soldier">士兵</option>
-						　 <option value="sergeant">士官</option>
-						<option value="officer">軍官</option>
-						　
-					</select></div>
-				<div>役別 <select id="militaryservice" name="militaryservice">
-						　 <option value="v">志願役</option>
-						　 <option value="c">義務役</option>
-						　 </select></div>
-				<div>服役時間 <select id="time" name="time">
-						　 <option value="S">一年內</option>
-						　 <option value="M">一至三年</option>
-						<option value="L">三年以上</option>
-						　
-					</select></div>
-				<div>心理測驗結果 <select id="testResult" name="testResult">
-						　 <option value="lieType">未通過測謊</option>
-						　 <option value="counselingType">心理諮商組/關懷輔導組/諮商輔導組/基層幹部協助組</option>
-						   <option value="referralMedicalType">轉介醫療組</option>
-						　 <option value="highlyCaredType">高度關懷</option>
-						　 <option value="needCareType">尚需關懷群</option>
-						   <option value="mediumHeightCareType">需中高度關懷群</option>
-						　 <option value="generalType">一般組</option>
-						   <option value="adaptWellType">適應良好群</option>
-						　 <option value="">無</option>
-						   <option value="moderateCareType">需中度關懷群</option>
-						　 <option value="Etype">e型</option>
-						　 <option value="Ctype">c型</option>　
-					      </select></div>
-				<div>是否有自殺史 <select id="suicideHistory" name="suicideHistory">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有自殺訊息 <select id="hadSuicideMessage" name="hadSuicideMessage">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有痼疾 <select id="confirmed Disease" name="confirmedDisease">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有感情問題 <select id="emotional Problems" name="emotionalProblems">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有精神疾病 <select id="mentalillness" name="mentalillness">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有家族自殺史 <select id="familySuicideHistory" name="familySuicideHistory">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有家庭壓力 <select id="family Members" name="familyMembers">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有工作壓力 <select id="workplacePressure" name="workplacePressure">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有經濟問題 <select id="Economic Issues" name="EconomicIssues">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-				<div>是否有個人壓力 <select id="personal Pressure" name="personalPressure">
-						　 <option value="1">是</option>
-						　 <option value="0">否</option>
-						　 </select></div>
-			</div>
-			<div><input type="button" id="Send" name="Send" value="繳交" onclick="SendAndCheck(document.fm);" /></div>
-		</form>
-	</div>
 </body>
 
 </html>
-<script>
-	$(document)
-		.ready(function () {})
-
-	function SendAndCheck(element) {
-		// console.log(element.elements["sexuality"].value);
-		var form_data = new FormData();
-		form_data.append("suicide", 0)
-		form_data.append("sexuality", element.elements["sexuality"].value)
-		form_data.append("age", element.elements["age"].value)
-		form_data.append("education", element.elements["education"].value)
-		form_data.append("rank", element.elements["rank"].value)
-		form_data.append("militaryservice", element.elements["militaryservice"].value)
-		form_data.append("time", element.elements["time"].value)
-		form_data.append("testResult", element.elements["testResult"].value)
-		form_data.append("suicideHistory", element.elements["suicideHistory"].value)
-		form_data.append("hadSuicideMessage", element.elements["hadSuicideMessage"].value)
-		form_data.append("confirmedDisease", element.elements["confirmedDisease"].value)
-		form_data.append("emotionalProblems", element.elements["emotionalProblems"].value)
-		form_data.append("mentalillness", element.elements["mentalillness"].value)
-		form_data.append("familySuicideHistory", element.elements["familySuicideHistory"].value)
-		form_data.append("familyMembers", element.elements["familyMembers"].value)
-		form_data.append("workplacePressure", element.elements["workplacePressure"].value)
-		form_data.append("EconomicIssues", element.elements["EconomicIssues"].value)
-		form_data.append("personalPressure", element.elements["personalPressure"].value)
-		// console.log(element.elements["education"].value)
-		console.log("predicting...")
-		$.ajax({
-			type: "POST",
-			async: true,
-			data: form_data,
-			processData: false,
-			url: "/predict",
-			contentType: false,
-			success: function (msg) {
-				console.log(msg)
-				if(msg["result"] > 0.5)
-				{
-					alert("建議轉介");
-
-				}
-
-				else{
-					alert("持續關懷");
-				}
-			},
-			error: function (err) {
-				console.log(err.responseText)
-			}
-		});
-	}
-</script>
