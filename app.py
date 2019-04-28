@@ -23,7 +23,7 @@ def home_page():
 
 @app.route('/form')
 def fillform():
-    return render_template('form.html') 
+    return render_template('form_v2.html') 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
