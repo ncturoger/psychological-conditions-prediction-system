@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import random
 import keras
 from keras.models import load_model
@@ -24,6 +24,14 @@ def home_page():
 @app.route('/form')
 def fillform():
     return render_template('form_v2.html') 
+
+@app.route('/result_positive')
+def result_1():
+    return render_template('result1.html') 
+
+@app.route('/result_negative')
+def result_2():
+    return render_template('result2.html') 
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
@@ -70,14 +78,12 @@ def predict():
         global graph
         with graph.as_default():
             result = get_predict(parameter)
-        return jsonify({
-            'name': "test",
-            'result': str(result[0])
-        })
-        # return jsonify({
-        #     "sss": str(name),
-        #     'result': "ok"
-        # })
+        
+        if float(str(result[0])) > 0.5:
+            return redirect(url_for('result_1'))
+        
+        else:
+            return redirect(url_for('result_2'))
     else:
         return
 

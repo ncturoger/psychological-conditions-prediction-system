@@ -33,7 +33,7 @@
 				<div class="ui text loader">預測中</div>
 			</div>
 			<div class="ui form">
-				<form id="fm" name="fm" action="" method="POST">
+				<form id="fm" name="fm" action="/predict" method="POST">
 					<h1 class="ui center aligned dividing header">填選案例資料</h1>
 					<label>基本資料</label>
 					<div class="inline fields">
@@ -344,28 +344,7 @@
 		sleep(2000).then(() => {
 			//document.getElementById('loader').classList.remove('active');
 			$.unblockUI();
-			$.ajax({
-				type: "POST",
-				async: true,
-				data: form_data,
-				processData: false,
-				url: "/predict",
-				contentType: false,
-				success: function (msg) {
-					console.log(msg)
-					if (msg["result"] > 0.5) {
-						alert("建議轉介");
-
-					}
-
-					else {
-						alert("持續關懷");
-					}
-				},
-				error: function (err) {
-					console.log(err.responseText)
-				}
-			});
+			fm.submit();
 		})
 
 
