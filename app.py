@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from predictors.NNPredictor import NNPredictor
+from predictors.XGBoostPredictor import XGBoostPredictor
 import tensorflow as tf
 
 app = Flask(__name__)
@@ -17,7 +18,11 @@ def home_page():
 
 @app.route('/form')
 def fillform():
-    return render_template('form_v2.html') 
+    if app.config["PREDICTOR_METHOD"] == "XGBoostPredictor":
+        return render_template('form_v3.html')
+    
+    elif app.config["PREDICTOR_METHOD"] == "NNPredictor":
+        return render_template('form_v2.html')
 
 @app.route('/result_positive')
 def result_1():
@@ -30,59 +35,64 @@ def result_2():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        sexuality = request.form.get('sexuality')
-        age = request.form.get('age')
-        education = request.form.get('education')
-        rank = request.form.get('rank')
-        militaryservice = request.form.get('militaryservice')
-        time = request.form.get('time')
-        testResult = request.form.get('testResult')
-        suicideHistory = request.form.get('suicideHistory')
-        hadSuicideMessage = request.form.get('hadSuicideMessage')
-        confirmedDisease = request.form.get('confirmedDisease')
-        emotionalProblems = request.form.get('emotionalProblems')
-        mentalillness = request.form.get('mentalillness')
-        familySuicideHistory = request.form.get('familySuicideHistory')
-        familyMembers = request.form.get('familyMembers')
-        workplacePressure = request.form.get('workplacePressure')
-        EconomicIssues = request.form.get('EconomicIssues')
-        personalPressure = request.form.get('personalPressure')
-        parameter = [
-            0,
-            sexuality,
-            age,
-            education,
-            rank,
-            militaryservice,
-            time,
-            testResult,
-            suicideHistory,
-            hadSuicideMessage,
-            confirmedDisease,
-            emotionalProblems,
-            mentalillness,
-            familySuicideHistory,
-            familyMembers,
-            workplacePressure,
-            EconomicIssues,
-            personalPressure
-        ]
-        with app.config["graph"].as_default():
+        if app.config["PREDICTOR_METHOD"] == "XGBoostPredictor":
+            cols = [
+                    '01.sui_history', '02.had_sui_message',
+                    '03.disease', '04.sub_abuse', '05.Gender_disorder',
+                    '06.mtl_illness', '07.fam_sui_history', '08.emo_imbalance',
+                    '09.rej_service', '10.relationship issue', '11.fam_problem',
+                    '12.inter_problem', '13.social_support', '14.maladaptive',
+                    '15.wk_pressure', '16.mng_problem', '17.setbacks',
+                    '18.punish&jud_case', '19.eco_burden', '20.debt'
+                    ]
+
+            parameter = [int(request.form.get(col)) for col in cols]
             result = app.config["predictor"].get_predict(parameter)
-        
-        if float(str(result[0])) > 0.5:
-            return redirect(url_for('result_1'))
-        
-        else:
-            return redirect(url_for('result_2'))
+            
+            if result == 1:
+                return redirect(url_for('result_1'))
+            
+            else:
+                return redirect(url_for('result_2'))
+
+        elif app.config["PREDICTOR_METHOD"] == "NNPredictor":
+            cols = [
+                    'sexuality', 'age', 'Education', 'rank',
+                    'militaryservice', 'Time','testResult','suicideHistory',
+                    'hadSuicideMessage','confirmedDisease','emotionalProblems',
+                    'mentalillness','familySuicideHistory','familyMembers',
+                    'workplacePressure','EconomicIssues','personalPressure'
+                   ]
+            
+            parameter = [0]
+            for col in cols:
+                parameter.append(request.form.get(col))
+
+            with app.config["graph"].as_default():
+                result = app.config["predictor"].get_predict(parameter)
+
+            if float(result) >= 0.5:
+                return redirect(url_for('result_1'))
+            
+            else:
+                return redirect(url_for('result_2'))
+
     else:
         return
 
 
 if __name__ == "__main__":
     print("server start...")
-    app.config["predictor"] = NNPredictor()
-    app.config["graph"] = tf.get_default_graph()
+    app.config.from_pyfile('config.py')
+    if app.config["PREDICTOR_METHOD"] == "XGBoostPredictor":
+        app.config["predictor"] = XGBoostPredictor()
+        print("Use XGBoostPredictor")
+    
+    elif app.config["PREDICTOR_METHOD"] == "NNPredictor":
+        app.config["graph"] = tf.get_default_graph()
+        app.config["predictor"] = NNPredictor()
+        print("Use NNPredictor")
+    
     app.run(host="0.0.0.0", debug=False)
 
     

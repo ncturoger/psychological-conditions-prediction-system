@@ -12,7 +12,13 @@ class NNPredictor():
     def get_predict(self, param_list):
         # implement the model based predictor
         all_df = pd.read_csv("trainnosu.csv")
-        cols=['suicide', 'sexuality', 'age', 'Education', 'rank', 'militaryservice', 'Time','testResult','hadSuicideMessage', 'confirmedDisease','emotionalProblems', 'mentalillness', 'familySuicideHistory','familyMembers', 'workplacePressure', 'EconomicIssues','personalPressure']
+        cols=[
+              'suicide', 'sexuality', 'age', 'Education', 'rank',
+              'militaryservice', 'Time','testResult','hadSuicideMessage',
+              'confirmedDisease','emotionalProblems', 'mentalillness',
+              'familySuicideHistory','familyMembers', 'workplacePressure',
+              'EconomicIssues','personalPressure'
+             ]
         all_df = all_df[cols]
         df = pd.DataFrame([list(param_list)],columns = [
         'suicide', 'sexuality', 'age', 'Education',
